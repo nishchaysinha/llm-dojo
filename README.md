@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🥋 LLM Dojo
 
-## Getting Started
+**Master LLM Fine-Tuning & Inference — From White Belt to Black Belt**
 
-First, run the development server:
+Free, open-source curriculum for mastering large language models. 83 hands-on Google Colab notebooks across 7 stages — from transformer basics to custom CUDA kernels and production inference.
+
+---
+
+## Curriculum
+
+| Stage | Belt | Topics | Notebooks |
+|-------|------|--------|-----------|
+| 0 | 🤍 White | Foundations, Transformers, Tokenization, Data | 7 |
+| 1 | 💛 Yellow | Full Fine-Tuning, Custom Loss, AMP, Evaluation | 10 |
+| 2 | 💚 Green | LoRA, QLoRA, Adapters, Prompt Tuning, DoRA | 10 |
+| 3 | 💙 Blue | FlashAttention, DeepSpeed, FSDP, Instruction Tuning | 10 |
+| 4 | 🤎 Brown | RLHF, DPO, Constitutional AI, MoE, Safety | 10 |
+| 5 | 🖤 Black | CUDA Kernels, Triton, Quantization, vLLM, TRT-LLM | 10 |
+| Inf | ❤️ Red | Inference Optimization, KV Cache, GPTQ, AWQ, GGUF | 23 |
+
+## Run Locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install && npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Before Pushing to Git
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Replace `YOUR_GITHUB_USERNAME` everywhere with your GitHub username
+2. Update `SITE_CONFIG.url` in `src/data/curriculum.ts`
+3. Replace `ca-pub-XXXXXXXXXXXXXXXX` with your AdSense publisher ID in `src/app/layout.tsx` and `src/components/AdBanner.tsx`
+4. Replace ad slot placeholder IDs with real ad unit IDs
 
-## Learn More
+## Deploy to Vercel
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npx vercel --prod
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## SEO
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Per-page metadata, OG tags, Twitter cards
+- JSON-LD: WebSite, Course, LearningResource, ItemList
+- Auto-generated sitemap.xml (92 URLs)
+- robots.txt
+- All 92 pages statically pre-rendered
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
