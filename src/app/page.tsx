@@ -41,6 +41,7 @@ export default function HomePage() {
         <div className="flex gap-4 flex-wrap">
           <Link href="/stage/stage-0" className="btn-accent">Start from zero →</Link>
           <Link href="/roadmap" className="btn-dim">View roadmap</Link>
+          <Link href="/mcp" className="btn-dim">Use with Claude Code</Link>
         </div>
       </section>
       <div className="max-w-7xl mx-auto px-6 py-6">
