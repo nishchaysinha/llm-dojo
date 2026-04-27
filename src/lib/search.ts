@@ -84,14 +84,43 @@ function embedQuery(query: string, dim: number): number[] {
   return n === 0 ? vec : vec.map(x => x / n);
 }
 
+function keywordScore(query: string, entry: Entry): number {
+  // Exact keyword matching against title + concepts — no embedding needed.
+  // Handles proper nouns like "GRPO", "LoRA", "vLLM" that hash-embedding misses.
+  const q = query.toLowerCase();
+  const qWords = q.split(/\W+/).filter(w => w.length > 1);
+  const titleLower = entry.title.toLowerCase();
+  const conceptsLower = entry.concepts.map(c => c.toLowerCase()).join(" ");
+  const textLower = entry.text.toLowerCase();
+
+  let score = 0;
+  for (const word of qWords) {
+    // Title match: highest weight
+    if (titleLower.includes(word)) score += 0.4;
+    // Concept match: high weight
+    if (conceptsLower.includes(word)) score += 0.3;
+    // Header chunk text match
+    if (entry.chunk === 0 && textLower.includes(word)) score += 0.2;
+    // Content chunk text match
+    if (entry.chunk > 0 && textLower.includes(word)) score += 0.05;
+  }
+  // Bonus: header chunks (title+description) are more reliable signals
+  if (entry.chunk === 0) score += 0.1;
+  return Math.min(score, 1.0);
+}
+
 export async function search(query: string, topK = 5): Promise<SearchResult[]> {
   const index = await loadIndex();
   const qvec = embedQuery(query, index.dim);
 
-  const scored = index.entries.map(e => ({
-    ...e,
-    score: cosine(qvec, e.embedding),
-  }));
+  const scored = index.entries.map(e => {
+    const vectorScore = cosine(qvec, e.embedding);
+    const kwScore = keywordScore(query, e);
+    // Hybrid: keyword score dominates for proper nouns/acronyms,
+    // vector score adds semantic similarity for natural language queries
+    const finalScore = 0.5 * vectorScore + 0.5 * kwScore;
+    return { ...e, score: finalScore };
+  });
 
   // Sort by score, deduplicate by slug (keep best chunk per notebook)
   const seen = new Set<string>();
