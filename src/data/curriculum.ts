@@ -20,7 +20,7 @@ export type Stage = {
 };
 
 export const COLAB_BASE =
-  "https://colab.research.google.com/github/YOUR_GITHUB_USERNAME/llm-dojo/blob/main/notebooks/";
+  "https://colab.research.google.com/github/nishchaysinha/llm-dojo/blob/main/notebooks/";
 
 export const stages: Stage[] = [
   {

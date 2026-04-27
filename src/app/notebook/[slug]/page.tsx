@@ -99,7 +99,7 @@ export default async function NotebookPage({ params }: Props) {
               </a>
             )}
             <a
-              href={`https://github.com/YOUR_GITHUB_USERNAME/llm-dojo`}
+              href={`https://github.com/nishchaysinha/llm-dojo`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-700 hover:border-slate-500 text-white font-semibold transition-colors"

@@ -37,7 +37,7 @@ export default function Navbar() {
               </Link>
             ))}
             <a
-              href="https://github.com/YOUR_GITHUB_USERNAME/llm-dojo"
+              href="https://github.com/nishchaysinha/llm-dojo"
               target="_blank"
               rel="noopener noreferrer"
               className="ml-2 px-4 py-2 rounded-lg text-sm font-medium bg-orange-500 hover:bg-orange-400 text-white transition-colors"

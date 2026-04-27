@@ -72,7 +72,7 @@ export default function AboutPage() {
           Start Learning →
         </Link>
         <a
-          href="https://github.com/YOUR_GITHUB_USERNAME/llm-dojo"
+          href="https://github.com/nishchaysinha/llm-dojo"
           target="_blank"
           rel="noopener noreferrer"
           className="px-8 py-4 rounded-xl border border-slate-700 hover:border-slate-500 text-white font-semibold transition-colors"

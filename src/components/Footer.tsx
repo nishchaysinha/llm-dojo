@@ -52,7 +52,7 @@ export default function Footer() {
               {[
                 ["Full Roadmap", "/roadmap"],
                 ["About", "/about"],
-                ["GitHub", "https://github.com/YOUR_GITHUB_USERNAME/llm-dojo"],
+                ["GitHub", "https://github.com/nishchaysinha/llm-dojo"],
                 ["Open Colab", "https://colab.research.google.com"],
               ].map(([label, href]) => (
                 <li key={href}>
