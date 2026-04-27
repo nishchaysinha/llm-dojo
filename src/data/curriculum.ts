@@ -436,7 +436,26 @@ export const inferenceStage: Stage = {
   ],
 };
 
-export const allStages = [...stages, inferenceStage];
+export const advancedStage: Stage = {
+  id: "advanced",
+  number: 7,
+  title: "2024–2025 Techniques",
+  description:
+    "GRPO reasoning models, ORPO/KTO alignment, Unsloth acceleration, SGLang serving, synthetic data pipelines, model merging, and standardized evaluation.",
+  notebooks: [
+    { id: "60", number: "60", title: "ORPO: Reference-Free Alignment", slug: "60-orpo", duration: "40 min", description: "Monolithic Preference Optimization combines SFT + preference in one loss — no reference model needed, 50% less memory than DPO.", concepts: ["ORPO", "Preference Optimization", "Reference-Free", "Odds Ratio", "TRL"], colabUrl: COLAB_BASE + "notebooks/60_orpo_implementation.ipynb" },
+    { id: "61", number: "61", title: "KTO: Binary Feedback Alignment", slug: "61-kto", duration: "35 min", description: "Kahneman-Tversky Optimization aligns models from binary thumbs-up/thumbs-down signals — no paired data required.", concepts: ["KTO", "Binary Feedback", "Prospect Theory", "TRL", "Preference Learning"], colabUrl: COLAB_BASE + "notebooks/61_kto_binary_feedback.ipynb" },
+    { id: "62", number: "62", title: "GRPO: Reasoning Model Training", slug: "62-grpo", duration: "55 min", description: "Group Relative Policy Optimization — the technique behind DeepSeek-R1. Train reasoning models with verifiable rewards, no critic network.", concepts: ["GRPO", "Reasoning Models", "DeepSeek-R1", "Verifiable Rewards", "RL Training"], colabUrl: COLAB_BASE + "notebooks/62_grpo_reasoning.ipynb" },
+    { id: "63", number: "63", title: "Preference Algorithm Comparison", slug: "63-preference-comparison", duration: "45 min", description: "DPO vs ORPO vs KTO vs IPO vs SimPO — which alignment algorithm to use when. Side-by-side comparison on the same dataset.", concepts: ["DPO", "ORPO", "KTO", "IPO", "SimPO", "Alignment"], colabUrl: COLAB_BASE + "notebooks/63_preference_algo_comparison.ipynb" },
+    { id: "64", number: "64", title: "LM Evaluation Harness", slug: "64-lm-eval", duration: "40 min", description: "Evaluate models on MMLU, ARC, HellaSwag, GSM8K using EleutherAI's lm-evaluation-harness — the standard for the HuggingFace Open LLM Leaderboard.", concepts: ["lm-eval", "MMLU", "ARC", "HellaSwag", "Benchmarking", "Evaluation"], colabUrl: COLAB_BASE + "notebooks/64_lm_evaluation_harness.ipynb" },
+    { id: "65", number: "65", title: "Unsloth: 2× Faster Fine-Tuning", slug: "65-unsloth", duration: "40 min", description: "Unsloth's custom Triton kernels deliver 2× training speed and 70% less VRAM. Drop-in replacement for standard HuggingFace fine-tuning.", concepts: ["Unsloth", "Triton Kernels", "Memory Efficiency", "FastLanguageModel", "Acceleration"], colabUrl: COLAB_BASE + "notebooks/65_unsloth_finetuning.ipynb" },
+    { id: "66", number: "66", title: "SGLang: Production Inference", slug: "66-sglang", duration: "45 min", description: "SGLang's RadixAttention and zero-overhead scheduler deliver higher throughput than vLLM. Used at xAI, NVIDIA, AMD at 400K+ GPU scale.", concepts: ["SGLang", "RadixAttention", "Prefix Caching", "Throughput", "Inference Serving"], colabUrl: COLAB_BASE + "notebooks/66_sglang_serving.ipynb" },
+    { id: "67", number: "67", title: "Synthetic Data Generation", slug: "67-synthetic-data", duration: "45 min", description: "LLM-as-annotator, self-instruct, and knowledge distillation pipelines. Build high-quality fine-tuning datasets for under $5.", concepts: ["Synthetic Data", "Self-Instruct", "LLM-as-Annotator", "Distilabel", "Data Pipeline"], colabUrl: COLAB_BASE + "notebooks/67_synthetic_data_generation.ipynb" },
+    { id: "68", number: "68", title: "Model Merging with MergeKit", slug: "68-model-merging", duration: "40 min", description: "Combine specialized fine-tuned models using SLERP, TIES, and DARE algorithms. No GPU required — runs on CPU.", concepts: ["MergeKit", "TIES", "DARE", "SLERP", "Model Merging", "Task Vectors"], colabUrl: COLAB_BASE + "notebooks/68_model_merging_mergekit.ipynb" },
+  ],
+};
+
+export const allStages = [...stages, inferenceStage, advancedStage];
 
 export function getNotebookBySlug(slug: string): { notebook: Notebook; stage: Stage } | null {
   for (const stage of allStages) {
