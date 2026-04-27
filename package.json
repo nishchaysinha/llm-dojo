@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:index": "python3 scripts/build-index.py",
+    "build:full": "python3 scripts/build-index.py && next build",
     "start": "next start",
     "lint": "eslint"
   },

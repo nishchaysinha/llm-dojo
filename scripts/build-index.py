@@ -15,14 +15,18 @@ curriculum_text = CURRICULUM.read_text()
 
 def extract_meta():
     result = {}
-    for m in re.finditer(
-        r'slug:\s*"([^"]+)"[^}]*?title:\s*"([^"]+)"[^}]*?description:\s*"([^"]+)"[^}]*?concepts:\s*\[([^\]]+)\]',
-        curriculum_text, re.DOTALL
-    ):
-        slug, title, desc, conc_raw = m.groups()
-        result[slug] = {
-            "title": title, "description": desc,
-            "concepts": re.findall(r'"([^"]+)"', conc_raw),
+    # Match each notebook object block
+    for block in re.finditer(r'\{[^{}]*?slug:\s*"([^"]+)"[^{}]*?\}', curriculum_text, re.DOTALL):
+        text = block.group(0)
+        slug_m = re.search(r'slug:\s*"([^"]+)"', text)
+        title_m = re.search(r'title:\s*"([^"]+)"', text)
+        desc_m  = re.search(r'description:\s*"([^"]+)"', text)
+        conc_m  = re.search(r'concepts:\s*\[([^\]]+)\]', text)
+        if not (slug_m and title_m): continue
+        result[slug_m.group(1)] = {
+            "title":       title_m.group(1),
+            "description": desc_m.group(1)  if desc_m  else "",
+            "concepts":    re.findall(r'"([^"]+)"', conc_m.group(1)) if conc_m else [],
         }
     return result
 
@@ -43,13 +47,19 @@ def chunks(text, size=300, overlap=50):
         i += size - overlap
     return out
 
-# Map filename stems to slugs
+# Map filename stems to slugs — try multiple strategies
 def find_slug(stem):
+    # Strategy 1: exact match after replacing _ with -
+    dashed = stem.replace("_", "-")
+    if dashed in meta: return dashed
+    # Strategy 2: leading number match (e.g. "62" matches "62-grpo-reasoning")
     num = stem.split("_")[0]
+    matches = [s for s in meta if s.startswith(num + "-") or s == num]
+    if len(matches) == 1: return matches[0]
+    # Strategy 3: substring match on full stem
     for slug in meta:
-        if num in slug or stem.replace("_", "-") in slug:
-            return slug
-    return stem.replace("_", "-")
+        if dashed in slug or slug in dashed: return slug
+    return dashed
 
 corpus = []
 for nb_dir in NB_DIRS:
