@@ -3,11 +3,12 @@ import Link from "next/link";
 import { useState } from "react";
 
 const links = [
-  { href: "/roadmap",      label: "Roadmap" },
+  { href: "/roadmap",       label: "Roadmap" },
   { href: "/stage/stage-0", label: "Foundations" },
   { href: "/stage/stage-2", label: "PEFT" },
   { href: "/stage/stage-4", label: "Alignment" },
   { href: "/stage/inference", label: "Inference" },
+  { href: "/mcp",           label: "MCP" },
   { href: "/about",         label: "About" },
 ];
 

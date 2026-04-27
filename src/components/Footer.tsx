@@ -47,6 +47,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {[
                 ["Full Roadmap", "/roadmap"],
+                ["Use with Claude Code", "/mcp"],
                 ["About", "/about"],
                 ["GitHub", "https://github.com/nishchaysinha/llm-dojo"],
                 ["Google Colab", "https://colab.research.google.com"],
