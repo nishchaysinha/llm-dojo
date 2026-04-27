@@ -3,77 +3,60 @@ import Link from "next/link";
 import { useState } from "react";
 
 const links = [
-  { href: "/roadmap", label: "Roadmap" },
+  { href: "/roadmap",      label: "Roadmap" },
   { href: "/stage/stage-0", label: "Foundations" },
-  { href: "/stage/stage-2", label: "LoRA / PEFT" },
+  { href: "/stage/stage-2", label: "PEFT" },
   { href: "/stage/stage-4", label: "Alignment" },
   { href: "/stage/inference", label: "Inference" },
-  { href: "/about", label: "About" },
+  { href: "/about",         label: "About" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   return (
-    <nav className="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/90 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl">
-            <span className="text-2xl">🥋</span>
-            <span className="bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
-              LLM Dojo
-            </span>
-          </Link>
+    <nav className="sticky top-0 z-50 border-b" style={{ borderColor: "var(--line)", background: "rgba(8,8,8,0.95)", backdropFilter: "blur(8px)" }}>
+      <div className="max-w-7xl mx-auto px-6 h-12 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="font-bold tracking-tight text-sm flicker" style={{ color: "var(--white)", letterSpacing: "0.05em" }}>
+          LLM_DOJO<span style={{ color: "var(--accent)" }}>.</span>
+        </Link>
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-1">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="px-3 py-2 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-              >
-                {l.label}
-              </Link>
-            ))}
-            <a
-              href="https://github.com/nishchaysinha/llm-dojo"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-2 px-4 py-2 rounded-lg text-sm font-medium bg-orange-500 hover:bg-orange-400 text-white transition-colors"
-            >
-              GitHub ↗
-            </a>
-          </div>
-
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setOpen(!open)}
-            className="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
-            aria-label="Toggle menu"
+        {/* Desktop */}
+        <div className="hidden md:flex items-center gap-6">
+          {links.map((l) => (
+            <Link key={l.href} href={l.href} className="underline-slide text-xs uppercase tracking-widest transition-colors" style={{ color: "var(--muted)" }}>
+              {l.label}
+            </Link>
+          ))}
+          <a
+            href="https://github.com/nishchaysinha/llm-dojo"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs uppercase tracking-widest border px-3 py-1 transition-colors"
+            style={{ borderColor: "var(--dim)", color: "var(--sub)" }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--muted)"; (e.currentTarget as HTMLElement).style.color = "var(--text)"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--dim)"; (e.currentTarget as HTMLElement).style.color = "var(--sub)"; }}
           >
-            <span className="block w-5 h-0.5 bg-current mb-1" />
-            <span className="block w-5 h-0.5 bg-current mb-1" />
-            <span className="block w-5 h-0.5 bg-current" />
-          </button>
+            GitHub
+          </a>
         </div>
 
-        {/* Mobile menu */}
-        {open && (
-          <div className="md:hidden pb-4 space-y-1">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="block px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </div>
-        )}
+        {/* Mobile toggle */}
+        <button onClick={() => setOpen(!open)} className="md:hidden text-xs" style={{ color: "var(--muted)" }} aria-label="menu">
+          {open ? "[ close ]" : "[ menu ]"}
+        </button>
       </div>
+
+      {/* Mobile menu */}
+      {open && (
+        <div className="md:hidden border-t px-6 py-4 space-y-3" style={{ borderColor: "var(--line)", background: "var(--bg)" }}>
+          {links.map((l) => (
+            <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="block text-xs uppercase tracking-widest" style={{ color: "var(--muted)" }}>
+              {l.label}
+            </Link>
+          ))}
+        </div>
+      )}
     </nav>
   );
 }

@@ -1,72 +1,290 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020817;
-  --foreground: #f1f5f9;
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-mono);
+  --bg:     #080808;
+  --bg1:    #0f0f0f;
+  --bg2:    #141414;
+  --line:   #1f1f1f;
+  --dim:    #333333;
+  --muted:  #555555;
+  --sub:    #888888;
+  --text:   #cccccc;
+  --bright: #e8e8e8;
+  --white:  #f0f0f0;
+  --accent: #c8ff00;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono), 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Code blocks */
+/* ── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--dim); }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* ── Selection ─────────────────────────────────────────────── */
+::selection { background: var(--accent); color: #000; }
+
+/* ── Links ─────────────────────────────────────────────────── */
+a { color: inherit; text-decoration: none; transition: color 0.15s; }
+a:hover { color: var(--white); }
+
+/* ── Fluid border pulse ─────────────────────────────────────── */
+@keyframes border-flow {
+  0%   { border-color: var(--line); }
+  50%  { border-color: var(--dim); }
+  100% { border-color: var(--line); }
+}
+.border-pulse { animation: border-flow 4s ease infinite; }
+
+/* ── Scan line ──────────────────────────────────────────────── */
+@keyframes scan {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+.scanline {
+  pointer-events: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(transparent, rgba(200,255,0,0.03), transparent);
+  z-index: 9999;
+  animation: scan 8s linear infinite;
+}
+
+/* ── Text flicker ───────────────────────────────────────────── */
+@keyframes flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96%            { opacity: 0.85; }
+  97%            { opacity: 1; }
+  98%            { opacity: 0.9; }
+}
+.flicker { animation: flicker 6s ease infinite; }
+
+/* ── Underline slide ────────────────────────────────────────── */
+.underline-slide {
+  position: relative;
+}
+.underline-slide::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+.underline-slide:hover::after { width: 100%; }
+
+/* ── Number counter (fluid tick-up via CSS) ─────────────────── */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.count-up { animation: count-up 0.4s ease forwards; }
+
+/* ── Card hover lift ────────────────────────────────────────── */
+.card {
+  border: 1px solid var(--line);
+  background: var(--bg1);
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.card:hover {
+  border-color: var(--dim);
+  background: var(--bg2);
+  transform: translateY(-1px);
+}
+
+/* ── Button variants (pure CSS hover, no JS needed) ─────────── */
+.btn-accent {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  transition: background 0.15s, color 0.15s;
+  cursor: pointer;
+}
+.btn-accent:hover { background: var(--accent); color: #000; }
+
+.btn-dim {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border: 1px solid var(--dim);
+  color: var(--sub);
+  background: transparent;
+  transition: border-color 0.15s, color 0.15s;
+  cursor: pointer;
+}
+.btn-dim:hover { border-color: var(--muted); color: var(--text); }
+
+.btn-sm-accent {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-sm-accent:hover { background: var(--accent); color: #000; }
+
+.btn-sm-dim {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border: 1px solid var(--dim);
+  color: var(--sub);
+  background: transparent;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-sm-dim:hover { border-color: var(--muted); color: var(--text); }
+
+/* ── Nav pill hover ─────────────────────────────────────────── */
+.nav-link {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+.nav-link:hover { color: var(--white); }
+
+/* ── Row hover ──────────────────────────────────────────────── */
+.row-hover {
+  background: var(--bg);
+  transition: background 0.15s;
+}
+.row-hover:hover { background: var(--bg1); }
+
+/* ── Notebook pill ──────────────────────────────────────────── */
+.nb-pill {
+  font-size: 11px;
+  border: 1px solid var(--line);
+  color: var(--dim);
+  padding: 3px 8px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.nb-pill:hover { border-color: var(--dim); color: var(--sub); }
+
+/* ── Card action buttons ────────────────────────────────────── */
+.card-btn-study {
+  flex: 1;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border: 1px solid var(--dim);
+  color: var(--sub);
+  transition: border-color 0.15s, color 0.15s;
+}
+.card-btn-study:hover { border-color: var(--muted); color: var(--text); }
+
+.card-btn-colab {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border: 1px solid var(--dim);
+  color: var(--sub);
+  transition: border-color 0.15s, color 0.15s;
+}
+.card-btn-colab:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── Accent tag ─────────────────────────────────────────────── */
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border: 1px solid var(--dim);
+  color: var(--sub);
+  transition: border-color 0.2s, color 0.2s;
+}
+.tag:hover { border-color: var(--muted); color: var(--text); }
+.tag.active { border-color: var(--accent); color: var(--accent); }
+
+/* ── Divider ────────────────────────────────────────────────── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 0;
+}
+
+/* ── Code ───────────────────────────────────────────────────── */
 pre {
-  @apply rounded-xl overflow-x-auto text-sm;
+  background: var(--bg1);
+  border: 1px solid var(--line);
+  padding: 1.25rem;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.7;
 }
-
 code:not(pre code) {
-  @apply bg-slate-800 text-orange-300 px-1.5 py-0.5 rounded text-sm font-mono;
+  background: var(--bg2);
+  color: var(--accent);
+  padding: 1px 6px;
+  font-size: 12px;
+  border: 1px solid var(--line);
 }
 
-/* Prose overrides for dark theme */
-.prose {
-  @apply text-slate-300;
-}
-.prose h1, .prose h2, .prose h3, .prose h4 {
-  @apply text-white;
-}
-.prose a {
-  @apply text-orange-400 no-underline hover:underline;
-}
-.prose strong {
-  @apply text-white;
-}
-.prose blockquote {
-  @apply border-orange-500 bg-slate-900 rounded-r-lg;
-}
-.prose code {
-  @apply text-orange-300 bg-slate-800;
-}
-.prose pre {
-  @apply bg-slate-900 border border-slate-700;
-}
+/* ── Prose ──────────────────────────────────────────────────── */
+.prose { color: var(--sub); }
+.prose h1, .prose h2, .prose h3, .prose h4 { color: var(--bright); font-weight: 700; }
+.prose h2 { border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; margin-top: 2.5rem; }
+.prose a { color: var(--text); border-bottom: 1px solid var(--dim); }
+.prose a:hover { color: var(--white); border-color: var(--muted); }
+.prose strong { color: var(--text); }
+.prose blockquote { border-left: 2px solid var(--dim); padding-left: 1rem; color: var(--muted); }
+.prose code { color: var(--accent); }
+.prose pre { background: var(--bg1) !important; border: 1px solid var(--line) !important; }
+.prose table { width: 100%; border-collapse: collapse; }
+.prose th { border-bottom: 1px solid var(--dim); color: var(--text); padding: 0.5rem 0.75rem; text-align: left; }
+.prose td { border-bottom: 1px solid var(--line); padding: 0.5rem 0.75rem; color: var(--sub); }
+.prose ul li::marker { color: var(--dim); }
+.prose ol li::marker { color: var(--dim); }
 
-/* Highlight.js theme for dark mode */
-.hljs {
-  background: #0f172a !important;
-  color: #e2e8f0 !important;
-}
-.hljs-keyword { color: #f472b6 !important; }
-.hljs-string  { color: #86efac !important; }
-.hljs-number  { color: #fb923c !important; }
-.hljs-comment { color: #64748b !important; font-style: italic; }
-.hljs-function .hljs-title { color: #60a5fa !important; }
-.hljs-class .hljs-title { color: #fde68a !important; }
-.hljs-built_in { color: #c4b5fd !important; }
+/* ── Hljs ───────────────────────────────────────────────────── */
+.hljs { background: var(--bg1) !important; color: var(--text) !important; }
+.hljs-keyword  { color: var(--accent) !important; }
+.hljs-string   { color: #7ec8a4 !important; }
+.hljs-number   { color: #a8c0e8 !important; }
+.hljs-comment  { color: var(--muted) !important; font-style: italic; }
+.hljs-function .hljs-title { color: var(--bright) !important; }
+.hljs-built_in { color: var(--sub) !important; }
 
-/* Smooth scrolling */
-html { scroll-behavior: smooth; }
-
-/* Belt gradient animations */
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-.shimmer {
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
+/* ── Noise texture overlay ──────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4;
 }

@@ -13,8 +13,8 @@ export type Stage = {
   id: string;
   number: number;
   title: string;
-  belt: string;
-  beltColor: string;
+  
+  
   description: string;
   notebooks: Notebook[];
 };
@@ -27,8 +27,6 @@ export const stages: Stage[] = [
     id: "stage-0",
     number: 0,
     title: "Foundations & Environment",
-    belt: "White Belt",
-    beltColor: "bg-white border border-gray-300 text-gray-700",
     description:
       "Set up your environment, understand transformers from scratch, and master data preparation fundamentals.",
     notebooks: [
@@ -115,8 +113,6 @@ export const stages: Stage[] = [
     id: "stage-1",
     number: 1,
     title: "Full Model Fine-Tuning",
-    belt: "Yellow Belt",
-    beltColor: "bg-yellow-400 text-yellow-900",
     description:
       "Fine-tune complete transformer models for classification and generation. Build custom training loops with mixed precision.",
     notebooks: [
@@ -236,8 +232,6 @@ export const stages: Stage[] = [
     id: "stage-2",
     number: 2,
     title: "Parameter-Efficient Fine-Tuning",
-    belt: "Green Belt",
-    beltColor: "bg-green-500 text-white",
     description:
       "Master LoRA, QLoRA, adapters, and prompt tuning — train LLMs with 100x fewer parameters.",
     notebooks: [
@@ -357,8 +351,6 @@ export const stages: Stage[] = [
     id: "stage-3",
     number: 3,
     title: "Advanced Optimization",
-    belt: "Blue Belt",
-    beltColor: "bg-blue-500 text-white",
     description:
       "FlashAttention, DeepSpeed ZeRO, FSDP, gradient checkpointing, and instruction tuning at scale.",
     notebooks: [
@@ -378,8 +370,6 @@ export const stages: Stage[] = [
     id: "stage-4",
     number: 4,
     title: "Alignment & Specialized Techniques",
-    belt: "Brown Belt",
-    beltColor: "bg-amber-800 text-white",
     description:
       "RLHF, DPO, Constitutional AI, reward models, and safety evaluation for aligned LLMs.",
     notebooks: [
@@ -399,8 +389,6 @@ export const stages: Stage[] = [
     id: "stage-5",
     number: 5,
     title: "Custom Kernels & Production",
-    belt: "Black Belt",
-    beltColor: "bg-gray-900 text-white",
     description:
       "Write CUDA/Triton kernels, master quantization, implement speculative decoding, and deploy with vLLM.",
     notebooks: [
@@ -422,8 +410,6 @@ export const inferenceStage: Stage = {
   id: "inference",
   number: 6,
   title: "LLM Inference Optimization",
-  belt: "Red Belt",
-  beltColor: "bg-red-600 text-white",
   description:
     "Profile, optimize, and deploy LLM inference at scale — from KV cache to quantization to multi-GPU serving.",
   notebooks: [
