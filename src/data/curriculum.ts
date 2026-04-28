@@ -470,7 +470,7 @@ export const SITE_CONFIG = {
   tagline: "Master LLM Fine-Tuning & Inference — From White Belt to Black Belt",
   description:
     "83 hands-on notebooks covering everything from transformer basics to CUDA kernels, LoRA, QLoRA, DPO, RLHF, vLLM serving, and production deployment. Free, open-source, and built to run on Google Colab.",
-  url: "https://llmdojo.dev",
+  url: "https://llm-dojo.grotto.run",
   ogImage: "https://llmdojo.dev/og/default.png",
   twitter: "@llmdojo",
   keywords: [
